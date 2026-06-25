@@ -1,0 +1,17 @@
+---
+- name: Install Docker from Ubuntu repositories
+  shell: DEBIAN_FRONTEND=noninteractive apt-get install -y -qq docker.io
+  register: docker_install_result
+  changed_when: "'Setting up' in docker_install_result.stdout"
+
+- name: Enable and start Docker
+  systemd:
+    name: docker
+    enabled: true
+    state: started
+
+- name: Add deployment user to docker group
+  user:
+    name: "{{ deploy_user }}"
+    groups: docker
+    append: true

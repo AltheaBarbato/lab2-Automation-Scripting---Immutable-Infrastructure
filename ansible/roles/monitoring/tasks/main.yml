@@ -1,0 +1,33 @@
+---
+- name: Stop and disable the older native node_exporter service, if present
+  systemd:
+    name: node_exporter
+    state: stopped
+    enabled: false
+  failed_when: false
+
+- name: Pull node_exporter image
+  command: docker pull {{ node_exporter_container_image }}
+  register: docker_pull_result
+  changed_when: "'Downloaded newer image' in docker_pull_result.stdout"
+
+- name: Check if node_exporter container already exists
+  command: docker ps -a --filter "name={{ node_exporter_container_name }}" --format "{{ '{{.Names}}' }}"
+  register: node_exporter_container_check
+  changed_when: false
+
+- name: Run node_exporter container
+  command: >
+    docker run -d
+    --name {{ node_exporter_container_name }}
+    --restart unless-stopped
+    -p 9100:9100
+    --pid host
+    -v /proc:/host/proc:ro
+    -v /sys:/host/sys:ro
+    -v /:/rootfs:ro
+    {{ node_exporter_container_image }}
+    --path.procfs=/host/proc
+    --path.sysfs=/host/sys
+    --collector.filesystem.mount-points-exclude=^/(sys|proc|dev|host|etc)($$|/)
+  when: node_exporter_container_name not in node_exporter_container_check.stdout

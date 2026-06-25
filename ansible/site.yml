@@ -1,0 +1,13 @@
+---
+- name: Bootstrap Python 3.9 for Ansible
+  hosts: webservers
+  become: true
+  gather_facts: false
+  tasks:
+    - name: Ensure Python 3.9+ is available for Ansible
+      raw: test -x /usr/bin/python3.9 || (apt-get update -qq && DEBIAN_FRONTEND=noninteractive apt-get install -y -qq python3.9)
+      changed_when: false
+
+- import_playbook: playbooks/01-baseline.yml
+- import_playbook: playbooks/02-webserver.yml
+- import_playbook: playbooks/03-monitoring.yml

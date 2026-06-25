@@ -1,0 +1,19 @@
+---
+server_hostname: webserver01
+domain_name: "163.192.117.50"
+
+deploy_user: deployer
+
+allowed_ports:
+  - { port: 22,   proto: tcp, comment: "SSH" }
+  - { port: 80,   proto: tcp, comment: "HTTP" }
+  - { port: 443,  proto: tcp, comment: "HTTPS" }
+  - { port: 9100, proto: tcp, comment: "node_exporter metrics" }
+
+fail2ban_ignoreip:
+  - "172.59.190.159"
+
+backup_dir: /var/backups/webserver01
+
+node_exporter_container_image: "prom/node-exporter:latest"
+node_exporter_container_name: node_exporter

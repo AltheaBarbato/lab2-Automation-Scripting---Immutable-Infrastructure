@@ -1,0 +1,49 @@
+---
+- name: Install NGINX
+  shell: DEBIAN_FRONTEND=noninteractive apt-get install -y -qq nginx
+  register: nginx_install_result
+  changed_when: "'Setting up' in nginx_install_result.stdout"
+
+- name: Deploy NGINX site configuration
+  template:
+    src: nginx.conf.j2
+    dest: /etc/nginx/sites-available/default
+    owner: root
+    group: root
+    mode: "0644"
+  notify: Restart NGINX
+
+- name: Deploy index page
+  template:
+    src: index.html.j2
+    dest: /var/www/html/index.html
+    owner: www-data
+    group: www-data
+    mode: "0644"
+
+- name: Configure log rotation for NGINX logs
+  copy:
+    dest: /etc/logrotate.d/nginx-lab2
+    content: |
+      /var/log/nginx/*.log {
+          daily
+          missingok
+          rotate 30
+          compress
+          delaycompress
+          notifempty
+          create 0640 www-data adm
+          sharedscripts
+          postrotate
+              /bin/kill -USR1 $(cat /run/nginx.pid 2>/dev/null) 2>/dev/null || true
+          endscript
+      }
+    owner: root
+    group: root
+    mode: "0644"
+
+- name: Enable and start NGINX
+  systemd:
+    name: nginx
+    enabled: true
+    state: started

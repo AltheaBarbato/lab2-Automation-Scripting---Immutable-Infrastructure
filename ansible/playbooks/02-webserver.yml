@@ -1,0 +1,8 @@
+---
+- name: Deploy web service on webserver01
+  hosts: webservers
+  become: true
+  vars_files:
+    - ../vars/main.yml
+  roles:
+    - webserver
