@@ -58,5 +58,5 @@ root_ssh=$(ssh $SSH_OPTS "root@$SERVER_IP" "echo ok" 2>&1)
 [[ "$root_ssh" != "ok" ]] && check "root SSH login blocked" pass || check "root SSH login blocked" fail
 
 echo ""
-echo "Results: $PASS passed, $FAIL failed"
+echo "done — $PASS passed, $FAIL failed"
 [ "$FAIL" -eq 0 ] && exit 0 || exit 1
