@@ -43,4 +43,4 @@ deletes the nginx config + the container, then reruns the playbook to bring it a
 
 ## Random notes
 
-Server's Python is too old for newer Ansible so `site.yml` installs python3.9 itself first. Also this Oracle image has a second firewall layer hiding behind UFW, baseline role handles both.
+server's python is too old for newer ansible so site.yml installs python3.9 itself first. also this oracle image has a second firewall layer hiding behind ufw, baseline role handles both of em.
