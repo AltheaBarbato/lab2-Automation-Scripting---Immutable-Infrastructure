@@ -1,7 +1,7 @@
-# Lab 2 – Automation, Scripting & Immutable Infrastructure
+# Lab 2 Automation, Scripting & Immutable Infrastructure
 **Name:** Althea Barbato
 
-Same server as Lab 1 (`webserver01`, `163.192.117.50`). Set up two ways here — plain bash scripts, and Ansible playbooks that do the same stuff but idempotent.
+Same server as Lab 1 (`webserver01`, `163.192.117.50`). Set up two ways here plain bash scripts, and Ansible playbooks that do the same stuff but idempotent.
 
 ## Layout
 
@@ -39,7 +39,7 @@ bash verify.sh              # checks it worked
 ```bash
 bash rebuild-demo.sh
 ```
-deletes the nginx config + the container, then reruns the playbook to bring it all back. that's the immutable infra part — don't fix it by hand, just rebuild from the code.
+deletes the nginx config + the container, then reruns the playbook to bring it all back. that's the immutable infra part don't fix it by hand, just rebuild from the code.
 
 ## Random notes
 
