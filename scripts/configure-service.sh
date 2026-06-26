@@ -1,13 +1,13 @@
 #!/bin/bash
 set -e
 
-echo "Enabling and starting NGINX..."
+echo "turning on nginx..."
 sudo systemctl enable nginx
 sudo systemctl restart nginx
 
-echo "Enabling and starting Fail2Ban..."
+echo "turning on fail2ban..."
 sudo systemctl enable fail2ban
 sudo systemctl start fail2ban
 
-echo "Service configuration complete."
+echo "done."
 sudo systemctl status nginx --no-pager | head -5
