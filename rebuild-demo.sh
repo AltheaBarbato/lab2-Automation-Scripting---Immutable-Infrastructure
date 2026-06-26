@@ -5,7 +5,7 @@ SERVER_IP="163.192.117.50"
 SSH_KEY="$HOME/.ssh/lab1-key.pem"
 SSH_OPTS="-i $SSH_KEY -o StrictHostKeyChecking=no -o ConnectTimeout=10"
 
-echo "=== Destroying the NGINX config and the node_exporter container on purpose ==="
+echo "=== breaking stuff on purpose ==="
 ssh $SSH_OPTS "sysadmin@$SERVER_IP" "sudo rm -f /etc/nginx/sites-available/default /var/www/html/index.html && sudo docker rm -f node_exporter"
 
 echo "=== Confirming both are actually gone ==="
