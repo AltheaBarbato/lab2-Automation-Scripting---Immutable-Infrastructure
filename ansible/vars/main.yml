@@ -12,6 +12,7 @@ allowed_ports:
 
 fail2ban_ignoreip:
   - "172.59.190.159"
+  - "208.59.56.247"
 
 backup_dir: /var/backups/webserver01
 
