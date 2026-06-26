@@ -1,4 +1,4 @@
-# Infrastructure-as-Code Reflection
+# Infrastructure as Code Reflection
 **Name:** Althea Barbato
 
 ## Benefits of automation
